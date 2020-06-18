@@ -1,0 +1,35 @@
+<nav aria-label="Pagination">
+    <ul class="pagination">
+        <li class="page-item {% if not pagination.hasPrev() %} disabled {% endif %}">
+            <a class="page-link"
+                {% if pagination.hasPrev() %}
+                    href="/page/{{ (pagination.getCurrentPage() - 1) ~ additionalQueryString }}"
+                {% endif %}
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Пред.</span>
+            </a>
+        </li>
+
+        {% for pageNumber in range(1, pagination.getNumberOfPages()) %}
+            <li class="page-item {% if pageNumber == pagination.getCurrentPage() %} active {% endif %}">
+                <a class="page-link"
+                    {% if pageNumber != pagination.getCurrentPage() %}
+                        href="/page/{{ pageNumber ~ additionalQueryString }}"
+                    {% endif %}
+                >{{ pageNumber }}</a>
+            </li>
+        {% endfor %}
+
+        <li class="page-item {% if not pagination.hasNext() %} disabled {% endif %}">
+            <a class="page-link"
+                {% if pagination.hasNext() %}
+                    href="/page/{{ (pagination.getCurrentPage() + 1) ~ additionalQueryString }}"
+                {% endif %}
+                aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">След.</span>
+            </a>
+        </li>
+    </ul>
+</nav>
