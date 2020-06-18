@@ -27,11 +27,13 @@ $router = new Core\Router();
 
 // Routes
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
+
 $router->add('page/{pagenumber:\d+}', ['controller' => 'Home', 'action' => 'index']);
+
 $router->add('auth/login', ['controller' => 'Auth', 'action' => 'login']);
 $router->add('auth/logout', ['controller' => 'Auth', 'action' => 'logout']);
 
 $router->add('task/add', ['controller' => 'Task', 'action' => 'add']);
 $router->add('task/{id:\d+}/edit', ['controller' => 'Task', 'action' => 'edit']);
-    
+
 $router->dispatch($_SERVER['QUERY_STRING']);
