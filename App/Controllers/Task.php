@@ -99,7 +99,7 @@ class Task extends Base
                 $content = trim($_POST['content']);
                 $status = (!empty($_POST['status']) ? intval($_POST['status']) : 0);
 
-                $is_edited = $task->is_edited ? 1 : ($task->content !== $content);
+                $is_edited = $task->is_edited ? 1 : intval($task->content !== $content);
 
                 $result = \App\Models\Task::editItem($id, $content, $status, $is_edited);
 
