@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Редактирование задачи #{{ task.id }}{% endblock %}
+
+{% block body %}
+    <form action="" method="POST" class="form-task-add needs-validation" novalidate>
+        <div class="text-center mb-4">
+            <h4 class="mb-3">Редактирование задачи</h4>
+            <p></p>
+        </div>
+
+        {% for alert in alerts %}
+            {{ include('Components/alert.html', { alert: alert }) }}
+        {% endfor %}
+
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="Введите имя пользователя" value="{{ task.username }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           placeholder="Введите ваш email" value="{{ task.email }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="task-content">Текст задачи</label>
+                    <textarea class="form-control" id="task-content" name="content"
+                              placeholder="Введите текст задачи" required>{{ task.content }}</textarea>
+                    <div class="invalid-feedback">
+                        Введите текст задачи
+                    </div>
+                </div>
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="status" value="1" {% if task.status == 1 %} checked {% endif %}> Выполнено
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+                <a href="/" class="btn btn-link text-danger">Отменить</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}
