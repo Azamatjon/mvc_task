@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Core\Components\Alert;
+use Core\Components\AlertType;
 use Core\Controller;
 
 /**
@@ -32,6 +34,16 @@ class Base extends Controller
 
         $this->view_data['isLoggedIn'] = &$this->is_logged_in;
         $this->view_data['alerts'] = &$this->alerts;
+
+
+        if (isset($_SESSION['alert_success'])){
+            $this->alerts['alert_success'] = new Alert(
+                AlertType::SUCCESS,
+                $_SESSION['alert_success'],
+                true
+            );
+            unset($_SESSION['alert_success']);
+        }
 
         // Query string of GET method
         $url_components = parse_url($_SERVER['REQUEST_URI']);

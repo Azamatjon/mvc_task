@@ -37,6 +37,11 @@
                 </div>
             </div>
             <div class="tasks-content">
+
+                {% for alert in alerts %}
+                    {{ include('Components/alert.html', { alert: alert }) }}
+                {% endfor %}
+
                 <div class="tasks-list">
                     {% for task in tasks_pagination.getItems() %}
                         <div class="card mb-2">

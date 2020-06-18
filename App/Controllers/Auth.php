@@ -5,6 +5,9 @@ namespace App\Controllers;
 use Core\Components\Alert;
 use Core\Components\AlertType;
 use \Core\View;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Auth controller
@@ -18,6 +21,9 @@ class Auth extends Base
      * Show the login page
      *
      * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function loginAction()
     {
@@ -41,6 +47,7 @@ class Auth extends Base
                 if (trim($user_name) == 'admin' && trim($password) == '123'){
                     $_SESSION['isLoggedIn'] = true;
 
+                    $_SESSION['alert_success'] = 'Вы успешно вошли как администратор';
                     $this->redirectToReferer();
                 } else {
                     $this->alerts['invalid_credentials'] = new Alert(

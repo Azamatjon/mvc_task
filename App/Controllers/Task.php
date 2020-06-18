@@ -45,6 +45,7 @@ class Task extends Base
 
                 // In case of successful adding task, redirect to the home page to show added task
                 if ($result) {
+                    $_SESSION['alert_success'] = 'Новая задача успешно добавлена';
                     header("Location: /");
                     exit();
                 } else {
