@@ -1,3 +1,3 @@
-### This is a simple MVC Task
+### This is a simple PHP MVC Task Application
 
 Demo: https://task-mvc.ddns.net
