@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block body %}
+    <form action="" method="POST" class="form-signin needs-validation" novalidate>
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
+            <p></p>
+        </div>
+
+        {% for alert in alerts %}
+            {{ include('Components/alert.html', { alert: alert }) }}
+        {% endfor %}
+
+        <div class="form-label-group">
+            <input type="text" id="userName" name="userName" class="form-control" name="userName" placeholder="Имя пользователя" required autofocus>
+            <div class="invalid-feedback">
+                Введите имя пользователя
+            </div>
+            <label for="userName">Имя пользователя</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Пароль" required>
+            <div class="invalid-feedback">
+                Введите пароль
+            </div>
+            <label for="inputPassword">Пароль</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
+    </form>
+{% endblock %}
