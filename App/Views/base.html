@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %} - Задачник</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+        <div class="col-6">
+            <a class="navbar-brand" href="/">Задачник</a>
+        </div>
+        <div class="navbar-container col-6">
+            {% if isLoggedIn %}
+                <a href="/auth/logout" class="btn btn-link float-right">Выход</a>
+            {% else %}
+                <a href="/auth/login" class="btn btn-outline-primary float-right">Вход</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="fix-content-height"></div>
+
+    {% block body %}
+    {% endblock %}
+
+    <script>
+        $(function() {
+            $('form.needs-validation').submit(function (event) {
+                if (this.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+        });
+    </script>
+</body>
+</html>
