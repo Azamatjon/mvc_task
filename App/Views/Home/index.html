@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <div class="tasks-wrapper">
+            <div class="tasks-header">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h5>Список задач</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="/task/add" class="btn btn-info float-right add-new">
+                            <i class="fa fa-plus"></i> Добавить
+                        </a>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <form id="tasks-sorting" action="" type="GET">
+                            <div class="form-group float-right">
+                                <label for="sort_by">Сортировка по</label>
+                                <select class="form-control w-auto d-inline-block" id="sort_by" name="sort_by">
+                                    <option value="-1" {% if sort_by is null %} selected {% endif %}>-</option>
+                                    <option value="username" {% if sort_by == 'username' %} selected {% endif %}>имя пользователя</option>
+                                    <option value="email" {% if sort_by == 'email' %} selected {% endif %}>email</option>
+                                    <option value="status" {% if sort_by == 'status' %} selected {% endif %}>статус</option>
+                                </select>
+                                <select class="form-control w-auto" name="sort_type">
+                                    <option value="ASC" {% if sort_type == 'ASC' %} selected {% endif %}>по возрастанию</option>
+                                    <option value="DESC" {% if sort_type == 'DESC' %} selected {% endif %}>по убыванию</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tasks-content">
+                <div class="tasks-list">
+                    {% for task in tasks_pagination.getItems() %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card-line">
+                                                <span class="line-description">Имя пользователя:</span>
+                                                <span class="line-value">{{ task.username }}</span>
+                                            </div>
+                                            <div class="card-line">
+                                                <span class="line-description">Email:</span>
+                                                <span class="line-value">{{ task.email }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card-line text-md-right">
+                                                <span class="line-description">Статус:</span>
+                                                <span class="line-value">{% if task.status == 1 %} Выполнено {% else %} Не выполнено {% endif %}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-line">
+                                        <span class="line-description">Текст задачи:</span>
+                                        <p class="card-text mt-1">{{ task.content }}</p>
+                                    </div>
+                                </div>
+
+                                {% if isLoggedIn %}
+                                    <div class="card-actions clearfix">
+                                        <a href="/task/{{ task.id }}/edit" class="float-right">Редактировать</a>
+                                    </div>
+                                {% endif %}
+
+                                {% if task.is_edited %}
+                                    <div class="card-status">
+                                        отредактировано администратором
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {{ include('Components/pagination.html', {
+                    pagination: tasks_pagination,
+                    additionalQueryString: query_string })
+                }}
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function() {
+            let $sortingForm = $('#tasks-sorting');
+
+            let $sortBySelector = $sortingForm.find('select[name="sort_by"]');
+            let $sortTypeSelector = $sortingForm.find('select[name="sort_type"]');
+
+            function refreshSortingForm() {
+                let sortBy = $sortBySelector.val();
+                if (sortBy !== '-1'){
+                    $sortTypeSelector.removeClass('d-none').addClass('d-inline-block');
+                } else {
+                    $sortTypeSelector.addClass('d-none').removeClass('d-inline-block');
+                }
+            }
+
+            $sortingForm.change(function () {
+                refreshSortingForm();
+                let sortBy = $sortBySelector.val();
+                if (sortBy === '-1') {
+                    window.location = window.location.href.split('?')[0];
+                } else $sortingForm.submit();
+            });
+
+            refreshSortingForm();
+        });
+    </script>
+{% endblock %}
