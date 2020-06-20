@@ -8,7 +8,6 @@ class Alert
     public $message;
     public $dismissible;
 
-
     public function __construct($type, $message, $dismissible = false)
     {
         $this->type = $type;
