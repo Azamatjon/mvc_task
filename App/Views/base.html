@@ -9,9 +9,6 @@
 
     <!-- Custom styles for this template -->
     <link href="/assets/css/style.css" rel="stylesheet">
-
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
@@ -31,6 +28,9 @@
     {% block body %}
     {% endblock %}
 
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
     <script>
         $(function() {
             $('form.needs-validation').submit(function (event) {
@@ -42,5 +42,9 @@
             });
         });
     </script>
+
+    {% block postBody %}
+    {% endblock %}
+
 </body>
 </html>

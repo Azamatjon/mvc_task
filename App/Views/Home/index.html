@@ -95,31 +95,34 @@
             </div>
         </div>
     </div>
-    <script>
-        $(function() {
-            let $sortingForm = $('#tasks-sorting');
 
-            let $sortBySelector = $sortingForm.find('select[name="sort_by"]');
-            let $sortTypeSelector = $sortingForm.find('select[name="sort_type"]');
+    {% block postBody %}
+        <script>
+            $(function() {
+                let $sortingForm = $('#tasks-sorting');
 
-            function refreshSortingForm() {
-                let sortBy = $sortBySelector.val();
-                if (sortBy !== '-1'){
-                    $sortTypeSelector.removeClass('d-none').addClass('d-inline-block');
-                } else {
-                    $sortTypeSelector.addClass('d-none').removeClass('d-inline-block');
+                let $sortBySelector = $sortingForm.find('select[name="sort_by"]');
+                let $sortTypeSelector = $sortingForm.find('select[name="sort_type"]');
+
+                function refreshSortingForm() {
+                    let sortBy = $sortBySelector.val();
+                    if (sortBy !== '-1'){
+                        $sortTypeSelector.removeClass('d-none').addClass('d-inline-block');
+                    } else {
+                        $sortTypeSelector.addClass('d-none').removeClass('d-inline-block');
+                    }
                 }
-            }
 
-            $sortingForm.change(function () {
+                $sortingForm.change(function () {
+                    refreshSortingForm();
+                    let sortBy = $sortBySelector.val();
+                    if (sortBy === '-1') {
+                        window.location = window.location.href.split('?')[0];
+                    } else $sortingForm.submit();
+                });
+
                 refreshSortingForm();
-                let sortBy = $sortBySelector.val();
-                if (sortBy === '-1') {
-                    window.location = window.location.href.split('?')[0];
-                } else $sortingForm.submit();
             });
-
-            refreshSortingForm();
-        });
-    </script>
+        </script>
+    {% endblock %}
 {% endblock %}
